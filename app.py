@@ -294,7 +294,6 @@ def highlight_negation_words(text):
     return ' '.join(highlighted)
 
 
-def create_sentiment_gauge(compound_score):
     """
     Create a Plotly gauge chart to visualize VADER sentiment compound score.
 
@@ -313,6 +312,8 @@ def create_sentiment_gauge(compound_score):
     Returns:
         plotly.graph_objects.Figure: Gauge chart figure
     """
+def create_sentiment_gauge(compound_score):
+
     if compound_score < -0.3:
         color = "red"
     elif compound_score > 0.3:
@@ -320,36 +321,20 @@ def create_sentiment_gauge(compound_score):
     else:
         color = "gold"
 
-    fig = go.Figure(data=[go.Indicator(
-        mode="gauge+number",
+    fig = go.Figure(go.Indicator(
+        mode="gauge",
         value=compound_score,
-        domain={'x': [0, 1], 'y': [0, 1]},
         title={'text': "Sentiment Intensity"},
         gauge={
-            'axis': {
-                'range': [-1, 1],
-                'tickvals': [-1, -0.5, 0, 0.5, 1],
-                'ticktext': ['Very Negative', 'Negative', 'Neutral', 'Positive', 'Very Positive']
-            },
+            'axis': {'range': [-1, 1]},
             'bar': {'color': color},
             'steps': [
-                {'range': [-1, -0.3], 'color': "rgba(255, 0, 0, 0.1)"},
-                {'range': [-0.3, 0.3], 'color': "rgba(255, 255, 0, 0.1)"},
-                {'range': [0.3, 1], 'color': "rgba(0, 128, 0, 0.1)"}
-            ],
-            'threshold': {
-                'line': {'color': "gray", 'width': 4},
-                'thickness': 0.75,
-                'value': 0
-            }
-        },
-    )])
-
-    fig.update_layout(
-        height=350,
-        margin=dict(l=20, r=20, t=70, b=20),
-        font=dict(size=12)
-    )
+                {'range': [-1, -0.3], 'color': "rgba(255,0,0,0.1)"},
+                {'range': [-0.3, 0.3], 'color': "rgba(255,255,0,0.1)"},
+                {'range': [0.3, 1], 'color': "rgba(0,128,0,0.1)"}
+            ]
+        }
+    ))
 
     return fig
 
