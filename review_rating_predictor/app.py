@@ -31,6 +31,20 @@ from nltk.sentiment import SentimentIntensityAnalyzer
 import pandas as pd
 import plotly.graph_objects as go
 
+import os
+import requests
+
+MODEL_PATH = "model/lstm_model.h5"
+
+if not os.path.exists(MODEL_PATH):
+    url = "https://drive.google.com/uc?export=download&id=17ZFfBlksi6Svlfhi8Khh0FBQHivlBTp-"
+
+    os.makedirs("model", exist_ok=True)
+
+    r = requests.get(url)
+
+    with open(MODEL_PATH, "wb") as f:
+        f.write(r.content)
 
 # =============================================================================
 # INITIALIZATION AND CACHING
@@ -839,3 +853,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
