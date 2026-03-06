@@ -6,4 +6,5 @@ nltk
 scikit-learn
 plotly
 keras
+requests
 
