@@ -343,7 +343,7 @@ def create_sentiment_gauge(compound_score):
                 'value': 0
             }
         },
-        number={'suffix': "", 'decimals': 2}
+        number={'suffix': "", 'valueformat': '.2f'}
     )])
 
     fig.update_layout(
